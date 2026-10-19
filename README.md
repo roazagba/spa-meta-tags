@@ -1,6 +1,6 @@
 # spa-meta-tags
 
-Link previews on WhatsApp, Facebook, X, LinkedIn… and SEO for **single-page applications** (Vue, React, Svelte…), without rewriting them with SSR.
+Link previews on WhatsApp, Facebook, X, LinkedIn and others, plus SEO for **single-page applications** (Vue, React, Svelte, etc.), without rewriting them with SSR.
 
 ## The problem
 
@@ -60,7 +60,7 @@ app.use(createSeoMiddleware({
 app.listen(3000)
 ```
 
-The middleware replaces the usual SPA "serve index.html for every route" fallback. It only handles pages (`GET`/`HEAD` requests without a file extension that accept HTML) and passes everything else along: files, API…
+The middleware replaces the usual SPA "serve index.html for every route" fallback. It only handles pages (`GET`/`HEAD` requests without a file extension that accept HTML) and passes everything else along (static files, API calls, etc.)
 
 A complete example, for an e-commerce API where each store has its own subdomain, is available in [`examples/express-spa.cjs`](examples/express-spa.cjs).
 
@@ -94,8 +94,8 @@ Template tags redefined by the page (`<title>`, `description`, `og:*`, `twitter:
 | `path` | `/my-product` | Requested path |
 | `query` | `URLSearchParams` | URL parameters |
 | `url` | `URL` | Full URL |
-| `isBot` | `true` | The request comes from a crawler (WhatsApp, Facebook, Google…) |
-| `req` | | Original request (Express, Node…) |
+| `isBot` | `true` | The request comes from a crawler (WhatsApp, Facebook, Google, etc.) |
+| `req` | | Original request (Express, Node, etc.) |
 
 ### SEO data
 
@@ -103,7 +103,7 @@ Template tags redefined by the page (`<title>`, `description`, `og:*`, `twitter:
 |---|---|
 | `title` | `<title>`, `og:title`, `twitter:title` |
 | `description` | `description`, `og:description`, `twitter:description`. HTML is converted to plain text and truncated to 200 characters |
-| `image`, `imageAlt`, `imageWidth`, `imageHeight` | `og:image…`, `twitter:image` |
+| `image`, `imageAlt`, `imageWidth`, `imageHeight` | `og:image`, `og:image:*`, `twitter:image` |
 | `url` | `og:url`. Defaults to the requested URL without query string |
 | `canonical` | `<link rel="canonical">`. Defaults to `url`, `false` to disable it |
 | `type` | `og:type`. Defaults to `website` |
@@ -146,7 +146,7 @@ const renderer = createSeoRenderer({ resolve, defaults, cache: { ttl: 60_000 } }
 const { html, status } = await renderer.render(req, template)
 
 // Or just the tags
-const tags = buildSeoTags({ title: 'My page', image: 'https://…' })
+const tags = buildSeoTags({ title: 'My page', image: 'https://example.com/cover.jpg' })
 const head_html = renderSeoTags(tags)
 const page = injectSeoTags(template, tags)
 ```
@@ -155,8 +155,8 @@ Exported utilities: `isBot`, `getRequestOrigin`, `htmlToText`, `truncate`, `esca
 
 ## In production
 
-- **The reverse proxy** (Nginx, Traefik, Cloudflare, your host's router…) must forward the real domain (`Host` or `X-Forwarded-Host`) and the protocol (`X-Forwarded-Proto: https`). Otherwise the generated URLs are wrong, and an API identifying the customer by its domain will not find it.
-- **Images** must be publicly reachable, with absolute URLs. Prefer JPEG or PNG, at least 600 × 315 px: WebP is not displayed by every platform.
+- **The reverse proxy** (Nginx, Traefik, Cloudflare, your host's router, etc.) must forward the real domain (`Host` or `X-Forwarded-Host`) and the protocol (`X-Forwarded-Proto: https`). Otherwise the generated URLs are wrong, and an API identifying the customer by its domain will not find it.
+- **Images** must be publicly reachable, with absolute URLs. Prefer JPEG or PNG, at least 600x315 px: WebP is not displayed by every platform.
 - **Add a `robots.txt`** to your static files. Without it, `/robots.txt` may receive the HTML page, and the Facebook crawler then refuses to read the site.
 - **Previews are cached by social networks.** To test them, use the [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) ("Scrape Again" button).
 
