@@ -153,6 +153,76 @@ const page = injectSeoTags(template, tags)
 
 Exported utilities: `isBot`, `getRequestOrigin`, `htmlToText`, `truncate`, `escapeHtml`, `mergeSeo`.
 
+## Static hosting (no Node server)
+
+If your SPA is deployed as static files (GitHub Pages, Netlify, Vercel static, Hostinger, S3, etc.), there is no server to run the middleware. Generate the pages at build time instead: after `vite build`, write one copy of `index.html` per page, each with its own tags.
+
+```
+dist/index.html            ->  https://example.com/
+dist/about/index.html      ->  https://example.com/about/
+dist/projects/index.html   ->  https://example.com/projects/
+```
+
+Static servers serve these files as is, so crawlers get the right tags, and the SPA still boots normally in the browser.
+
+A ready-to-copy Vite plugin is available in [`examples/vite-static-pages.js`](examples/vite-static-pages.js). It reads the pages from your routes file: put the SEO data of each page in its route.
+
+```js
+// src/router/routes.js
+export const routes = [
+  { path: '/', component: Home, meta: { seo: { title: 'My Site', description: 'Welcome to my site' } } },
+  { path: '/about', component: () => import('../pages/About.vue'), meta: { seo: { title: 'About | My Site' } } },
+  {
+    path: '/blog',
+    children: [
+      { path: 'first-post', component: Post, meta: { seo: { title: 'First post', type: 'article' } } },
+    ],
+  },
+]
+```
+
+```js
+// vite.config.js
+import { staticMetaPages } from './plugins/static-meta-pages.js'
+
+export default defineConfig({
+  plugins: [
+    vue(),
+    staticMetaPages({
+      siteUrl: 'https://example.com',
+      routes: './src/router/routes.js',
+      defaults: { siteName: 'My Site', image: 'https://example.com/og-image.jpg' },
+    }),
+  ],
+})
+```
+
+The routes file is loaded with Vite, so it can import `.vue`, `.jsx` or `.tsx` components. Nested routes (`children`) are supported. Routes without SEO data, dynamic routes (`/projects/:id`) and catch-all routes are skipped.
+
+Options of the plugin:
+
+| Option | Description |
+|---|---|
+| `siteUrl` | Absolute URL of the site, without trailing slash |
+| `routes` | Routes file, relative to the project root |
+| `routesExport` | Export holding the routes. Defaults to `routes`, then `default` |
+| `getSeo` | Reads the SEO data of a route. Defaults to `route.meta.seo` (Vue Router), then `route.handle.seo` (React Router) |
+| `pages` | Function returning more pages (`[{ path, seo }]`), for pages built from data: API, markdown or JSON files |
+| `defaults` | Data shared by every page |
+
+Two things to check:
+
+- **Trailing slash.** `/about` is now a directory, so most static servers redirect it to `/about/`. The plugin uses this final URL for `og:url` and the canonical link. Vue Router and React Router match `/about/` like `/about` by default.
+- **Relative paths.** From `/about/`, the browser resolves a relative path like `data/content.json` or `images/logo.png` to `/about/data/content.json`, and the request fails. If your app uses relative paths, add a base URL at the top of the `<head>` of `index.html`, so they are always resolved from the site root:
+
+  ```html
+  <base href="%BASE_URL%" />
+  ```
+
+  Vite replaces `%BASE_URL%` with your `base` option (`/` by default). Note that `<base>` also changes the target of links like `href="#section"`: use the full path (`href="/about#section"`) or a router link for them.
+
+Pages that are not generated (for example dynamic URLs with an id) still work through your usual SPA fallback, with the default tags of `index.html`.
+
 ## In production
 
 - **The reverse proxy** (Nginx, Traefik, Cloudflare, your host's router, etc.) must forward the real domain (`Host` or `X-Forwarded-Host`) and the protocol (`X-Forwarded-Proto: https`). Otherwise the generated URLs are wrong, and an API identifying the customer by its domain will not find it.
