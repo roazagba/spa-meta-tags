@@ -177,4 +177,4 @@ Contributions are welcome: bugs, ideas, documentation or code. See the [contribu
 
 ## License
 
-[MIT](LICENSE) © Roméo AZAGBA
+[MIT](LICENSE) © [Roméo AZAGBA](https://roazagba.me)
