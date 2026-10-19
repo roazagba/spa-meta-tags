@@ -1,0 +1,62 @@
+{
+  "name": "spa-meta-tags",
+  "version": "0.1.0",
+  "description": "Server-side meta tags for single-page applications: SEO and link previews (Open Graph, Twitter cards) on WhatsApp, Facebook, X, LinkedIn.",
+  "author": "Roméo AZAGBA <roazagba@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "type-check": "tsc --noEmit",
+    "prepublishOnly": "npm run type-check && npm test && npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "tsup": "^8.5.1",
+    "typescript": "~5.9.2",
+    "vitest": "^4.1.12"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "meta-tags",
+    "seo",
+    "spa",
+    "open-graph",
+    "og",
+    "twitter-card",
+    "link-preview",
+    "social-preview",
+    "whatsapp",
+    "facebook",
+    "linkedin",
+    "vue",
+    "react",
+    "vite",
+    "express",
+    "ssr"
+  ]
+}
