@@ -7,7 +7,7 @@ Thanks for your interest! Contributions are welcome: bug reports, ideas, documen
 Open an issue on GitHub and include:
 
 - the version of the package and of Node;
-- the server used (Express, Node `http`...) and the framework of the SPA;
+- the server used (Express, Node `http`, etc.) and the framework of the SPA;
 - the expected and the actual behavior, ideally with the generated HTML or a minimal example.
 
 For a social network preview issue, attach the result of the [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) or an equivalent tool.

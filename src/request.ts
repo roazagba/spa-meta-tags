@@ -13,7 +13,7 @@ const bot_regex = new RegExp([
 ].join('|'), 'i')
 
 /**
- * True when the user agent is a crawler (social network preview, search engine...)
+ * True when the user agent is a crawler (social network preview, search engine, etc.)
  */
 export function isBot (user_agent?: string | null): boolean {
   return !!user_agent && bot_regex.test(user_agent)

@@ -4,7 +4,7 @@ import { renderSeoTags } from './tags'
 export interface InjectOptions {
   /** Comment replaced by the tags. Defaults to `<!--seo-head-->`; otherwise the tags are inserted before `</head>` */
   placeholder?: string
-  /** Removes the tags of the template that are redefined (title, description, og:*...). Defaults to true */
+  /** Removes the tags of the template that are redefined (title, description, og:*, etc.). Defaults to true */
   replaceExisting?: boolean
 }
 
@@ -38,7 +38,7 @@ function tagKey (tag: SeoTag): string | null {
     }
     case 'link': {
       const rel = tag.attrs.rel?.toLowerCase()
-      // Several links can have the same rel (alternate, preload...): only these ones are unique
+      // Several links can have the same rel (alternate, preload, etc.): only these ones are unique
       return rel && ['canonical', 'icon', 'shortcut icon'].includes(rel) ? `link:${rel}` : null
     }
     default: {

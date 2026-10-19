@@ -15,13 +15,13 @@ export interface SeoMiddlewareOptions<Req extends RequestLike = RequestLike> ext
 type Next = (error?: unknown) => void
 
 /**
- * Default filter: page navigations only (not the assets, the API...)
+ * Default filter: page navigations only (not the assets, the API, etc.)
  */
 export function isPageRequest (req: RequestLike): boolean {
   if (req.method && !['GET', 'HEAD'].includes(req.method.toUpperCase())) return false
 
   const path = (req.originalUrl ?? req.url ?? '/').split('?', 1)[0] ?? '/'
-  // Assets: /assets/app.js, /favicon.png, /robots.txt...
+  // Assets: /assets/app.js, /favicon.png, /robots.txt, etc.
   if (/\.[a-z\d]+$/i.test(path)) return false
 
   const accept = req.headers.accept

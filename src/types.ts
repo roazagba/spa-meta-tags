@@ -16,7 +16,7 @@ export interface SeoData {
   url?: string
   /** Canonical URL. Defaults to `url`, `false` to disable it */
   canonical?: string | false
-  /** `og:type` (website, product, article...). Defaults to `website` */
+  /** `og:type` (website, product, article, etc.). Defaults to `website` */
   type?: string
   siteName?: string
   /** `og:locale`, for example `fr_FR` */
@@ -53,7 +53,7 @@ export type SeoTag =
   | { tag: 'meta' | 'link', attrs: Record<string, string> }
   | { tag: 'script', attrs: Record<string, string>, content: string }
 
-/** Minimal request interface: compatible with Node `http`, Express, Connect... */
+/** Minimal request interface: compatible with Node `http`, Express, Connect, etc. */
 export interface RequestLike {
   url?: string
   /** Express: URL before the mount path is removed */
@@ -64,7 +64,7 @@ export interface RequestLike {
   socket?: object | null
 }
 
-/** Minimal response interface: compatible with Node `http`, Express, Connect... */
+/** Minimal response interface: compatible with Node `http`, Express, Connect, etc. */
 export interface ResponseLike {
   statusCode: number
   setHeader: (name: string, value: string) => unknown
@@ -82,7 +82,7 @@ export interface SeoContext<Req extends RequestLike = RequestLike> {
   origin: string
   /** Host of the visitor, for example `shop.example.com` */
   host: string
-  /** True when the request comes from a crawler (WhatsApp, Facebook, Google...) */
+  /** True when the request comes from a crawler (WhatsApp, Facebook, Google, etc.) */
   isBot: boolean
 }
 

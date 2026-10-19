@@ -1,5 +1,5 @@
 /**
- * Example: SPA deployed as static files (GitHub Pages, Netlify, Vercel static, Hostinger, S3...),
+ * Example: SPA deployed as static files (GitHub Pages, Netlify, Vercel static, Hostinger, S3, etc.),
  * without any Node server.
  *
  * After `vite build`, this plugin writes one copy of index.html per route, with its own meta tags:
@@ -38,7 +38,7 @@
  *   })
  *
  * Dynamic routes (/projects/:id) and catch-all routes are skipped. Use the `pages` option
- * when the pages come from data (an API, markdown files, JSON files...).
+ * when the pages come from data (an API, markdown files, JSON files, etc.).
  */
 import fs from 'node:fs'
 import path from 'node:path'
@@ -82,7 +82,7 @@ export function staticMetaPages (options) {
   }
 
   /**
-   * Loads the routes file with Vite, so that it can import components (.vue, .jsx...)
+   * Loads the routes file with Vite, so that it can import components (.vue, .jsx, etc.)
    */
   async function loadRoutes () {
     const server = await createServer({
