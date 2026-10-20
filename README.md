@@ -2,6 +2,8 @@
 
 Link previews on WhatsApp, Facebook, X, LinkedIn and others, plus SEO for **single-page applications** (Vue, React, Svelte, etc.), without rewriting them with SSR.
 
+**Documentation: [roazagba.github.io/spa-meta-tags](https://roazagba.github.io/spa-meta-tags/)** (English and French)
+
 ## The problem
 
 A SPA renders its content in the browser. Social network crawlers do not run JavaScript: they only see the initial `index.html`, so every page gets the same title and the same image.

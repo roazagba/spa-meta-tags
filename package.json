@@ -4,7 +4,7 @@
   "description": "Server-side meta tags for single-page applications: SEO and link previews (Open Graph, Twitter cards) on WhatsApp, Facebook, X, LinkedIn.",
   "author": "Roméo AZAGBA <roazagba@gmail.com> (https://roazagba.me)",
   "license": "MIT",
-  "homepage": "https://github.com/roazagba/spa-meta-tags#readme",
+  "homepage": "https://roazagba.github.io/spa-meta-tags/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/roazagba/spa-meta-tags.git"

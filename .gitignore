@@ -3,3 +3,8 @@ dist
 coverage
 *.log
 .DS_Store
+
+# Documentation website
+website/node_modules
+website/.vitepress/dist
+website/.vitepress/cache
