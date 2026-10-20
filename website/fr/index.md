@@ -22,7 +22,7 @@ features:
   - title: N'importe quel serveur Node
     details: Un middleware pour Express, Connect ou le serveur http de Node, et des fonctions de base utilisables dans tout autre serveur ou rendu SSR.
   - title: Aussi en hébergement statique
-    details: Pas de serveur Node ? Générez une page HTML par route au moment du build, pour GitHub Pages, Netlify, Hostinger ou S3.
+    details: "Pas de serveur Node ? Générez une page HTML par route au moment du build. Fonctionne avec n'importe quel hébergement statique : Vercel, Netlify, Cloudflare Pages, GitHub Pages, un hébergement mutualisé, S3, et bien d'autres."
   - title: Sûr et robuste
     details: Toutes les valeurs sont échappées. Si votre API est lente ou en panne, la page est servie avec vos balises par défaut.
   - title: Aucune dépendance

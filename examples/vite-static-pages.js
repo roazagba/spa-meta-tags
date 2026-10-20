@@ -1,5 +1,5 @@
 /**
- * Example: SPA deployed as static files (GitHub Pages, Netlify, Vercel static, Hostinger, S3, etc.),
+ * Example: SPA deployed as static files, on any static host (Vercel, Netlify, Cloudflare Pages, GitHub Pages, S3, etc.),
  * without any Node server.
  *
  * After `vite build`, this plugin writes one copy of index.html per route, with its own meta tags:

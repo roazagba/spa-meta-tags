@@ -157,7 +157,7 @@ Exported utilities: `isBot`, `getRequestOrigin`, `htmlToText`, `truncate`, `esca
 
 ## Static hosting (no Node server)
 
-If your SPA is deployed as static files (GitHub Pages, Netlify, Vercel static, Hostinger, S3, etc.), there is no server to run the middleware. Generate the pages at build time instead: after `vite build`, write one copy of `index.html` per page, each with its own tags.
+If your SPA is deployed as static files, on any static host (Vercel, Netlify, Cloudflare Pages, GitHub Pages, shared hosting, S3, and so on), there is no server to run the middleware. Generate the pages at build time instead: after `vite build`, write one copy of `index.html` per page, each with its own tags.
 
 ```
 dist/index.html            ->  https://example.com/

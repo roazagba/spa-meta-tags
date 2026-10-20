@@ -22,7 +22,7 @@ features:
   - title: Any Node server
     details: An Express, Connect or Node http middleware, plus core functions you can call from any other server or SSR setup.
   - title: Static hosting too
-    details: No Node server? Generate one HTML page per route at build time, for GitHub Pages, Netlify, Hostinger or S3.
+    details: "No Node server? Generate one HTML page per route at build time. Works with any static host: Vercel, Netlify, Cloudflare Pages, GitHub Pages, shared hosting, S3, and more."
   - title: Safe and resilient
     details: Every value is escaped. If your API is slow or down, the page is still served with your default tags.
   - title: Zero dependencies

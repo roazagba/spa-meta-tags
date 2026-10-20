@@ -1,6 +1,6 @@
 # Static hosting
 
-If your SPA is deployed as static files (GitHub Pages, Netlify, Vercel static, Cloudflare Pages, Hostinger, S3, etc.), there is no Node server to run the middleware. Generate the pages at build time instead.
+If your SPA is deployed as static files, on any static host (Vercel, Netlify, Cloudflare Pages, GitHub Pages, shared hosting, S3, and so on), there is no Node server to run the middleware. Generate the pages at build time instead.
 
 ## The idea
 

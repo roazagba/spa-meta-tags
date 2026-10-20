@@ -1,6 +1,6 @@
 # Hébergement statique
 
-Si votre SPA est déployée en fichiers statiques (GitHub Pages, Netlify, Vercel en statique, Cloudflare Pages, Hostinger, S3, etc.), il n'y a pas de serveur Node pour faire tourner le middleware. Générez plutôt les pages au moment du build.
+Si votre SPA est déployée en fichiers statiques, sur n'importe quel hébergement statique (Vercel, Netlify, Cloudflare Pages, GitHub Pages, un hébergement mutualisé, S3, etc.), il n'y a pas de serveur Node pour faire tourner le middleware. Générez plutôt les pages au moment du build.
 
 ## Le principe
 
