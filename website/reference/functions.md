@@ -6,7 +6,8 @@ Everything is exported from the package root:
 import {
   createSeoMiddleware, createSeoRenderer,
   buildSeoTags, renderSeoTags, injectSeoTags,
-  mergeSeo, createSeoContext, getRequestOrigin, isBot, isPageRequest,
+  mergeSeo, createSeoContext, getRequestOrigin, isBot, isAiBot, aiBots, isPageRequest,
+  buildRobotsTxt, buildLlmsTxt,
   htmlToText, truncate, escapeHtml, decodeEntities,
   SeoTimeoutError,
 } from 'spa-meta-tags'
@@ -107,6 +108,19 @@ isBot('facebookexternalhit/1.1') // true
 isBot('Mozilla/5.0 (Macintosh) ... Chrome/130') // false
 ```
 
+### `isAiBot(userAgent)`
+
+Returns `true` when the user agent belongs to an AI crawler (GPTBot, ChatGPT-User, OAI-SearchBot, ClaudeBot, Claude-User, PerplexityBot, CCBot, Bytespider, etc.). These crawlers are also detected by `isBot`.
+
+```js
+isAiBot('Mozilla/5.0 (compatible; GPTBot/1.2; +https://openai.com/gptbot)') // true
+isAiBot('Mozilla/5.0 (Macintosh) ... Chrome/130') // false
+```
+
+### `aiBots`
+
+List of the known AI crawlers: `{ agent, company, kind }`, where `kind` is `'training'`, `'search'` or `'user'`. See [AI visibility](../guide/ai-visibility).
+
 ### `isPageRequest(req)`
 
 Default filter of the middleware: `true` for `GET` and `HEAD` requests whose path has no file extension and that accept HTML (or have no `Accept` header).
@@ -114,6 +128,32 @@ Default filter of the middleware: `true` for `GET` and `HEAD` requests whose pat
 ```js
 shouldHandle: req => isPageRequest(req) && !req.url.startsWith('/api/')
 ```
+
+## AI visibility
+
+### `buildRobotsTxt(options?)`
+
+Returns the content of a `robots.txt`.
+
+| Option | Description |
+|---|---|
+| `allow` | Paths allowed for every crawler |
+| `disallow` | Paths blocked for every crawler. Without `allow` and `disallow`, everything is allowed |
+| `sitemaps` | URL, or array of URLs, of the sitemaps |
+| `ai` | `{ training?, search?, user? }`: `false` blocks the AI crawlers of this kind, `true` allows them explicitly, a missing kind follows the rules of every crawler |
+
+### `buildLlmsTxt(options)`
+
+Returns the content of a [`/llms.txt`](https://llmstxt.org) file.
+
+| Option | Description |
+|---|---|
+| `title` | Name of the site. Required |
+| `description` | Short summary |
+| `details` | Free Markdown text |
+| `sections` | `[{ title, links: [{ title, url, description? }], optional? }]`. An `optional` section is written last, under the title `Optional` |
+
+See [AI visibility](../guide/ai-visibility) for examples.
 
 ## Text
 

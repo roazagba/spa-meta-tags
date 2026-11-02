@@ -84,6 +84,8 @@ export interface SeoContext<Req extends RequestLike = RequestLike> {
   host: string
   /** True when the request comes from a crawler (WhatsApp, Facebook, Google, etc.) */
   isBot: boolean
+  /** True when the request comes from an AI crawler (GPTBot, ClaudeBot, PerplexityBot, ChatGPT-User, etc.). Also counted in `isBot` */
+  isAiBot: boolean
 }
 
 export type SeoResolver<Req extends RequestLike = RequestLike> =

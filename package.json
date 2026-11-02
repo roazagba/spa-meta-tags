@@ -65,6 +65,10 @@
     "react",
     "vite",
     "express",
-    "ssr"
+    "ssr",
+    "ai",
+    "llms-txt",
+    "robots-txt",
+    "geo"
   ]
 }

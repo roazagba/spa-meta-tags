@@ -19,6 +19,7 @@ async function resolve (context) {
 | `origin` | `string` | `https://shop.example.com` | Protocole et domaine du visiteur, derrière le proxy |
 | `host` | `string` | `shop.example.com` | Domaine du visiteur (avec le port, s'il y en a un) |
 | `isBot` | `boolean` | `true` | La requête vient d'un robot (WhatsApp, Facebook, Google, etc.) |
+| `isAiBot` | `boolean` | `true` | La requête vient d'un robot d'IA (GPTBot, ClaudeBot, PerplexityBot, etc.). Aussi compté dans `isBot` |
 | `req` | objet | | La requête d'origine (Express, Node `http`) |
 
 ## Ce qu'il peut renvoyer

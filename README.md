@@ -97,6 +97,7 @@ Template tags redefined by the page (`<title>`, `description`, `og:*`, `twitter:
 | `query` | `URLSearchParams` | URL parameters |
 | `url` | `URL` | Full URL |
 | `isBot` | `true` | The request comes from a crawler (WhatsApp, Facebook, Google, etc.) |
+| `isAiBot` | `true` | The request comes from an AI crawler (GPTBot, ClaudeBot, PerplexityBot, etc.). Also counted in `isBot` |
 | `req` | | Original request (Express, Node, etc.) |
 
 ### SEO data
@@ -153,7 +154,7 @@ const head_html = renderSeoTags(tags)
 const page = injectSeoTags(template, tags)
 ```
 
-Exported utilities: `isBot`, `getRequestOrigin`, `htmlToText`, `truncate`, `escapeHtml`, `mergeSeo`.
+Exported utilities: `isBot`, `isAiBot`, `aiBots`, `buildRobotsTxt`, `buildLlmsTxt`, `getRequestOrigin`, `htmlToText`, `truncate`, `escapeHtml`, `mergeSeo`.
 
 ## Static hosting (no Node server)
 
@@ -225,11 +226,38 @@ Two things to check:
 
 Pages that are not generated (for example dynamic URLs with an id) still work through your usual SPA fallback, with the default tags of `index.html`.
 
+## AI visibility
+
+AI assistants and AI search engines (ChatGPT, Claude, Perplexity, etc.) mostly do not run JavaScript either: with the injected tags and JSON-LD, they read the right content for each page. On top of that:
+
+```js
+import { buildRobotsTxt, buildLlmsTxt } from 'spa-meta-tags'
+
+// Block AI training, stay visible in AI search and answers
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain').send(buildRobotsTxt({
+    sitemaps: 'https://example.com/sitemap.xml',
+    ai: { training: false, search: true, user: true },
+  }))
+})
+
+// Summary of the site for AI tools (https://llmstxt.org)
+app.get('/llms.txt', (req, res) => {
+  res.type('text/markdown').send(buildLlmsTxt({
+    title: 'My Shop',
+    description: 'Online shop of handmade bags.',
+    sections: [{ title: 'Pages', links: [{ title: 'Catalog', url: 'https://example.com/catalog' }] }],
+  }))
+})
+```
+
+`context.isAiBot` tells the resolver when a request comes from an AI crawler. These crawlers are also counted in `isBot`. See the [documentation](https://roazagba.github.io/spa-meta-tags/guide/ai-visibility) for the list of crawlers and the options.
+
 ## In production
 
 - **The reverse proxy** (Nginx, Traefik, Cloudflare, your host's router, etc.) must forward the real domain (`Host` or `X-Forwarded-Host`) and the protocol (`X-Forwarded-Proto: https`). Otherwise the generated URLs are wrong, and an API identifying the customer by its domain will not find it.
 - **Images** must be publicly reachable, with absolute URLs. Prefer JPEG or PNG, at least 600x315 px: WebP is not displayed by every platform.
-- **Add a `robots.txt`** to your static files. Without it, `/robots.txt` may receive the HTML page, and the Facebook crawler then refuses to read the site.
+- **Add a `robots.txt`** to your static files (`buildRobotsTxt` can generate it, see [AI visibility](#ai-visibility)). Without it, `/robots.txt` may receive the HTML page, and the Facebook crawler then refuses to read the site.
 - **Previews are cached by social networks.** To test them, use the [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) ("Scrape Again" button).
 
 ## Development

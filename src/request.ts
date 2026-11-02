@@ -1,3 +1,4 @@
+import { ai_bot_pattern, isAiBot } from './ai-bots'
 import type { RequestLike, SeoContext } from './types'
 
 const bot_regex = new RegExp([
@@ -8,6 +9,8 @@ const bot_regex = new RegExp([
   // Search engines
   'googlebot', 'google-inspectiontool', 'bingbot', 'yandex', 'baiduspider', 'duckduckbot', 'applebot',
   'qwantify', 'ecosia',
+  // AI crawlers (GPTBot, ClaudeBot, PerplexityBot, ChatGPT-User, etc.)
+  ai_bot_pattern,
   // Generic
   'bot\\b', 'crawler', 'spider', 'preview',
 ].join('|'), 'i')
@@ -59,5 +62,6 @@ export function createSeoContext<Req extends RequestLike> (req: Req, options: Or
     origin,
     host: url.host,
     isBot: isBot(header(req, 'user-agent')),
+    isAiBot: isAiBot(header(req, 'user-agent')),
   }
 }

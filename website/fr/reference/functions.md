@@ -6,7 +6,8 @@ Tout est exporté depuis la racine du package :
 import {
   createSeoMiddleware, createSeoRenderer,
   buildSeoTags, renderSeoTags, injectSeoTags,
-  mergeSeo, createSeoContext, getRequestOrigin, isBot, isPageRequest,
+  mergeSeo, createSeoContext, getRequestOrigin, isBot, isAiBot, aiBots, isPageRequest,
+  buildRobotsTxt, buildLlmsTxt,
   htmlToText, truncate, escapeHtml, decodeEntities,
   SeoTimeoutError,
 } from 'spa-meta-tags'
@@ -107,6 +108,19 @@ isBot('facebookexternalhit/1.1') // true
 isBot('Mozilla/5.0 (Macintosh) ... Chrome/130') // false
 ```
 
+### `isAiBot(userAgent)`
+
+Renvoie `true` quand le user agent est celui d'un robot d'IA (GPTBot, ChatGPT-User, OAI-SearchBot, ClaudeBot, Claude-User, PerplexityBot, CCBot, Bytespider, etc.). Ces robots sont aussi détectés par `isBot`.
+
+```js
+isAiBot('Mozilla/5.0 (compatible; GPTBot/1.2; +https://openai.com/gptbot)') // true
+isAiBot('Mozilla/5.0 (Macintosh) ... Chrome/130') // false
+```
+
+### `aiBots`
+
+Liste des robots d'IA connus : `{ agent, company, kind }`, où `kind` vaut `'training'`, `'search'` ou `'user'`. Voir [Visibilité auprès des IA](../guide/ai-visibility).
+
 ### `isPageRequest(req)`
 
 Filtre par défaut du middleware : `true` pour les requêtes `GET` et `HEAD` dont le chemin n'a pas d'extension de fichier et qui acceptent du HTML (ou n'ont pas d'en-tête `Accept`).
@@ -114,6 +128,32 @@ Filtre par défaut du middleware : `true` pour les requêtes `GET` et `HEAD` don
 ```js
 shouldHandle: req => isPageRequest(req) && !req.url.startsWith('/api/')
 ```
+
+## Visibilité auprès des IA
+
+### `buildRobotsTxt(options?)`
+
+Renvoie le contenu d'un `robots.txt`.
+
+| Option | Description |
+|---|---|
+| `allow` | Chemins autorisés pour tous les robots |
+| `disallow` | Chemins bloqués pour tous les robots. Sans `allow` ni `disallow`, tout est autorisé |
+| `sitemaps` | URL, ou tableau d'URL, des sitemaps |
+| `ai` | `{ training?, search?, user? }` : `false` bloque les robots d'IA de ce type, `true` les autorise explicitement, un type absent suit les règles de tous les robots |
+
+### `buildLlmsTxt(options)`
+
+Renvoie le contenu d'un fichier [`/llms.txt`](https://llmstxt.org).
+
+| Option | Description |
+|---|---|
+| `title` | Nom du site. Obligatoire |
+| `description` | Court résumé |
+| `details` | Texte Markdown libre |
+| `sections` | `[{ title, links: [{ title, url, description? }], optional? }]`. Une section `optional` est écrite en dernier, sous le titre `Optional` |
+
+Voir [Visibilité auprès des IA](../guide/ai-visibility) pour des exemples.
 
 ## Texte
 

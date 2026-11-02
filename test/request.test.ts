@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { createSeoContext, getRequestOrigin, htmlToText, isBot, truncate } from '../src'
+import { createSeoContext, getRequestOrigin, htmlToText, isAiBot, isBot, truncate } from '../src'
 
 describe('getRequestOrigin', () => {
   it('uses the headers of the reverse proxy', () => {
@@ -71,5 +71,35 @@ describe('text', () => {
   it('truncates with an ellipsis', () => {
     expect(truncate('abcdef', 4)).toBe('abc…')
     expect(truncate('abc', 4)).toBe('abc')
+  })
+})
+
+describe('AI crawlers', () => {
+  const agents = [
+    'Mozilla/5.0 AppleWebKit/537.36 (compatible; GPTBot/1.2; +https://openai.com/gptbot)',
+    'Mozilla/5.0 AppleWebKit/537.36 (compatible; ChatGPT-User/1.0; +https://openai.com/bot)',
+    'Mozilla/5.0 (compatible; OAI-SearchBot/1.0; +https://openai.com/searchbot)',
+    'Mozilla/5.0 AppleWebKit/537.36 (compatible; ClaudeBot/1.0; +claudebot@anthropic.com)',
+    'Claude-User/1.0',
+    'Mozilla/5.0 (compatible; PerplexityBot/1.0; +https://perplexity.ai/perplexitybot)',
+    'Mozilla/5.0 (compatible; CCBot/2.0; +https://commoncrawl.org/faq/)',
+  ]
+
+  it.each(agents)('detects %s as an AI crawler and as a bot', (agent) => {
+    expect(isAiBot(agent)).toBe(true)
+    expect(isBot(agent)).toBe(true)
+  })
+
+  it('does not flag browsers or search engines as AI crawlers', () => {
+    expect(isAiBot('Mozilla/5.0 (Macintosh) AppleWebKit/537.36 Chrome/130 Safari/537.36')).toBe(false)
+    expect(isAiBot('Mozilla/5.0 (compatible; Googlebot/2.1)')).toBe(false)
+    expect(isAiBot(undefined)).toBe(false)
+  })
+
+  it('exposes isAiBot in the context', () => {
+    const context = createSeoContext({ url: '/', headers: { 'host': 'a.test', 'user-agent': 'ChatGPT-User/1.0' } })
+
+    expect(context.isAiBot).toBe(true)
+    expect(context.isBot).toBe(true)
   })
 })

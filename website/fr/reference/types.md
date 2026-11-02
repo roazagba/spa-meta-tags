@@ -25,6 +25,7 @@ interface SeoContext<Req extends RequestLike = RequestLike> {
   origin: string
   host: string
   isBot: boolean
+  isAiBot: boolean
 }
 ```
 

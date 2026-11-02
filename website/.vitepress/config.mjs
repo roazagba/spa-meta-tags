@@ -37,6 +37,7 @@ function sidebar (prefix, t) {
           { text: t.template, link: `${prefix}/guide/template` },
           { text: t.multiTenant, link: `${prefix}/guide/multi-tenant` },
           { text: t.structuredData, link: `${prefix}/guide/structured-data` },
+          { text: t.aiVisibility, link: `${prefix}/guide/ai-visibility` },
         ],
       },
       {
@@ -107,6 +108,7 @@ const en = {
   template: 'The HTML template',
   multiTenant: 'One site per subdomain',
   structuredData: 'Structured data (JSON-LD)',
+  aiVisibility: 'AI visibility',
   production: 'Going to production',
   checklist: 'Production checklist',
   performance: 'Performance and caching',
@@ -139,6 +141,7 @@ const fr = {
   template: 'Le template HTML',
   multiTenant: 'Un site par sous-domaine',
   structuredData: 'Données structurées (JSON-LD)',
+  aiVisibility: 'Visibilité auprès des IA',
   production: 'Mise en production',
   checklist: 'Liste de contrôle',
   performance: 'Performances et cache',

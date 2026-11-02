@@ -19,6 +19,7 @@ async function resolve (context) {
 | `origin` | `string` | `https://shop.example.com` | Protocol and domain of the visitor, behind the proxy |
 | `host` | `string` | `shop.example.com` | Domain of the visitor (with the port, if any) |
 | `isBot` | `boolean` | `true` | The request comes from a crawler (WhatsApp, Facebook, Google, etc.) |
+| `isAiBot` | `boolean` | `true` | The request comes from an AI crawler (GPTBot, ClaudeBot, PerplexityBot, etc.). Also counted in `isBot` |
 | `req` | object | | The original request (Express, Node `http`) |
 
 ## What it can return
