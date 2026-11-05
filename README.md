@@ -1,5 +1,10 @@
 # spa-meta-tags
 
+[![npm version](https://img.shields.io/npm/v/spa-meta-tags.svg)](https://www.npmjs.com/package/spa-meta-tags)
+[![npm downloads](https://img.shields.io/npm/dm/spa-meta-tags.svg)](https://www.npmjs.com/package/spa-meta-tags)
+[![npm total downloads](https://img.shields.io/npm/dt/spa-meta-tags.svg)](https://www.npmjs.com/package/spa-meta-tags)
+[![license](https://img.shields.io/npm/l/spa-meta-tags.svg)](LICENSE)
+
 Link previews on WhatsApp, Facebook, X, LinkedIn and others, plus SEO for **single-page applications** (Vue, React, Svelte, etc.), without rewriting them with SSR.
 
 **Documentation: [roazagba.github.io/spa-meta-tags](https://roazagba.github.io/spa-meta-tags/)** (English and French)

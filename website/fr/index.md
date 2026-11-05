@@ -30,3 +30,9 @@ features:
   - title: Prêt pour le multi-clients
     details: Une boutique ou un client par sous-domaine ? Le resolver connaît le domaine de chaque visiteur, et le cache est séparé par domaine.
 ---
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/spa-meta-tags"><img src="https://img.shields.io/npm/v/spa-meta-tags.svg" alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/spa-meta-tags"><img src="https://img.shields.io/npm/dm/spa-meta-tags.svg" alt="npm downloads"></a>
+  <a href="https://www.npmjs.com/package/spa-meta-tags"><img src="https://img.shields.io/npm/dt/spa-meta-tags.svg" alt="npm total downloads"></a>
+</p>

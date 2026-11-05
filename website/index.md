@@ -30,3 +30,9 @@ features:
   - title: Multi-tenant ready
     details: One store or customer per subdomain? The resolver knows the host of each visitor, and the cache is kept per host.
 ---
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/spa-meta-tags"><img src="https://img.shields.io/npm/v/spa-meta-tags.svg" alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/spa-meta-tags"><img src="https://img.shields.io/npm/dm/spa-meta-tags.svg" alt="npm downloads"></a>
+  <a href="https://www.npmjs.com/package/spa-meta-tags"><img src="https://img.shields.io/npm/dt/spa-meta-tags.svg" alt="npm total downloads"></a>
+</p>
